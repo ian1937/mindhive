@@ -22,12 +22,18 @@ class Shift(models.Model):
     day = models.CharField(max_length=10, choices=Days.choices)
     start_time = models.TimeField()
     end_time = models.TimeField()
+    
+    def __str__(self):
+        return '{}: {} - {}'.format(self.name, self.start_time, self.end_time)
 
 
 class Employee(models.Model):
     name = models.CharField(max_length=50)
 
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return '{} [{}]'.format(self.name)
 
 
 class Availability(models.Model):
@@ -36,3 +42,6 @@ class Availability(models.Model):
     end_time = models.TimeField()
 
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}: {} - {}'.format(self.name, self.start_time, self.end_time)

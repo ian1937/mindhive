@@ -8,14 +8,19 @@ class RoleEndpointTest(BaseTest):
 
     def setUp(self):
         super().setUp()
+
         roles = [
-            {'name': 'Fullstack Developer'},
-            {'name': 'Frontend Developer'},
             {'name': 'Backend Developer'},
+            {'name': 'Frontend Developer'},
+            {'name': 'Fullstack Developer'},
         ]
+
         for role in roles:
             role_obj = Role(name=role['name'])
             role_obj.save()
+
+    def tearDown(self):
+        Role.objects.all().delete()
 
     def test_endpoint(self):
         response = self.client.get('/roles/')
@@ -24,11 +29,8 @@ class RoleEndpointTest(BaseTest):
     def test_get_return_data(self):
         response = self.client.get('/roles/')
         self.assertIn(b'Backend Developer', response.content)
-
-    def test_post_status_code(self):
-        payload = {'name': 'QA Engineer'}
-        response = self.client.post('/roles/', payload)
-        self.assertEqual(response.status_code, 201)
+        self.assertIn(b'Frontend Developer', response.content)
+        self.assertIn(b'Fullstack Developer', response.content)
 
     def test_post_data_saved(self):
         payload = {'name': 'Project Manager'}
@@ -38,3 +40,4 @@ class RoleEndpointTest(BaseTest):
     def test_delete_all_data(self):
         response = self.client.delete('/roles/')
         self.assertEqual(b'', response.content)
+

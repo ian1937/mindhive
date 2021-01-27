@@ -41,3 +41,14 @@ class ShiftsEndpointTest(BaseTest):
     def test_get_return_data(self):
         response = self.client.get('/shifts/')
         self.assertIn(b'Monday', response.content)
+        self.assertIn(b'Tuesday', response.content)
+
+    def test_post_data_saved(self):
+        payload = {"day": "Wednesday", "start_time": "14:00", "end_time": "22:00"}
+        response = self.client.post('/shifts/', payload)
+        self.assertIn(b'Wednesday', response.content)
+
+    def test_delete_all_data(self):
+        response = self.client.delete('/roles/')
+        self.assertEqual(b'', response.content)
+
