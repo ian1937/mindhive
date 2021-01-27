@@ -1,6 +1,6 @@
+python manage.py shell
+
 from roster.models import Role
-
-
 roles = [
     {'name': 'Project Manager'},
     {'name': 'Devops'},
@@ -9,3 +9,9 @@ roles = [
     {'name': 'Backend Developer'},
     {'name': 'QA Engineer'},
 ]
+for role in roles:
+    role_obj = Role(name=role['name'])
+    role_obj.save()
+
+exit()
+

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
 
+from roster.models import Role, Shift, Employee, Availability
 from roster.views import roles, shifts, employees, availabilities
 
 
@@ -15,13 +16,24 @@ class BaseTest(TestCase):
 
 class RoleEndpointTest(BaseTest):
 
+    def setUp(self):
+        super().setUp()
+        roles = [
+            {'name': 'Fullstack Developer'},
+            {'name': 'Frontend Developer'},
+            {'name': 'Backend Developer'},
+        ]
+        for role in roles:
+            role_obj = Role(name=role['name'])
+            role_obj.save()
+
     def test_endpoint(self):
         response = self.client.get('/roles/')
         self.assertEqual(response.resolver_match.func, roles)
 
-    # def test_return_data(self):
-    #     endpoint = resolve('/roles')
-    #     self.assertEqual(endpoint.response)
+    def test_return_data(self):
+        response = self.client.get('/roles/')
+        self.assertIn(b'Backend Developer', response.content)
 
 
 class ShiftsEndpointTest(BaseTest):

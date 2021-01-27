@@ -6,19 +6,22 @@ from roster.models import Role
 from roster.serializers import RoleSerializer
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST', 'DELETE'])
 def roles(request):
     if request.method == 'GET':
         roles = Role.objects.all()
         serializer = RoleSerializer(roles, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=200)
     return HttpResponse(status=404)
+
 
 def shifts(request):
     return HttpResponse('Hello shifts')
 
+
 def availabilities(request):
     return HttpResponse('Hello availabilities')
+
 
 def employees(request):
     return HttpResponse('Hello employees')
