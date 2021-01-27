@@ -22,5 +22,22 @@ class EmployeesEndpointTest(BaseTest):
             employee_obj.save()
     
     def test_employees_endpoint(self):
-        response = self.client.get('/employees/')
+        response = self.client.get("/employees/")
         self.assertEqual(response.resolver_match.func, employees)
+
+    def test_get_return_data(self):
+        response = self.client.get("/employees/")
+        self.assertIn(b"Donna Valentina", response.content)
+        self.assertIn(b"Daniel Kanasimo", response.content)
+        self.assertIn(b"Ricky Sudargo", response.content)
+
+    # def test_post_data_saved(self):
+    #     role = Role.objects.first()
+    #     payload = {"name": "Patricia Carolina", "role": role}
+    #     response = self.client.post("/employees/", payload)
+    #     self.assertIn(b"Patricia Carolina", response.content)
+    #     self.assertIn(b"Project Manager", response.content)
+
+    def test_delete_all_data(self):
+        response = self.client.delete("/employees/")
+        self.assertEqual(b"", response.content)

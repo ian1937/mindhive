@@ -17,9 +17,6 @@ class Role(models.Model):
     def __str__(self):
         return '{}'.format(self.name)
 
-    def __repr__(self):
-        return '{}'.format(self.name)
-
 
 class Shift(models.Model):
     day = models.CharField(max_length=10, choices=Days.choices)
@@ -33,7 +30,7 @@ class Shift(models.Model):
 class Employee(models.Model):
     name = models.CharField(max_length=50)
 
-    role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL, related_name='employee')
+    role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return '{} [{}]'.format(self.name, self.role)
