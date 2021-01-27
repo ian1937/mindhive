@@ -31,10 +31,19 @@ class RoleEndpointTest(BaseTest):
         response = self.client.get('/roles/')
         self.assertEqual(response.resolver_match.func, roles)
 
-    def test_return_data(self):
+    def test_get_return_data(self):
         response = self.client.get('/roles/')
         self.assertIn(b'Backend Developer', response.content)
 
+    def test_post_status_code(self):
+        payload = {'name': 'QA Engineer'}
+        response = self.client.post('/roles/', payload)
+        self.assertEqual(response.status_code, 201)
+
+    def test_post_data_saved(self):
+        payload = {'name': 'Project Manager'}
+        response = self.client.post('/roles/', payload)
+        self.assertIn(b'Project Manager', response.content)
 
 class ShiftsEndpointTest(BaseTest):
 

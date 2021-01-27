@@ -12,6 +12,11 @@ def roles(request):
         roles = Role.objects.all()
         serializer = RoleSerializer(roles, many=True)
         return Response(serializer.data, status=200)
+    elif request.method == 'POST':
+        serializer = RoleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
     return HttpResponse(status=404)
 
 
