@@ -13,6 +13,10 @@ class EndpointTest(TestCase):
         endpoint = resolve('/employees')
         self.assertEqual(endpoint.func, employees)
 
-    def test_availability_endpoint(self):
-        endpoint = resolve('/availability')
-        self.assertEqual(endpoint.func, availability)
+    def test_availabilities_endpoint(self):
+        endpoint = resolve('/availabilities')
+        self.assertEqual(endpoint.func, availabilities)
+
+    def test_roles_endpoint(self):
+        endpoint = resolve('/roles')
+        self.assertEqual(endpoint.func, roles)
