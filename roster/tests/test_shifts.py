@@ -4,33 +4,35 @@ from roster.models import Shift
 from roster.views import shifts
 
 
+shifts_list = [
+    {
+        "day": "Monday",
+        "start_time": "06:00",
+        "end_time": "14:00"
+    },
+    {
+        "day": "Monday",
+        "start_time": "14:00",
+        "end_time": "22:00"
+    },
+    {
+        "day": "Tuesday",
+        "start_time": "06:00",
+        "end_time": "14:00"
+    },
+    {
+        "day": "Tuesday",
+        "start_time": "14:00",
+        "end_time": "22:00"
+    },
+]
+
 class ShiftsEndpointTest(BaseTest):
 
     def setUp(self):
         super().setUp()
-        shifts = [
-            {
-                "day": "Monday",
-                "start_time": "06:00",
-                "end_time": "14:00"
-            },
-            {
-                "day": "Monday",
-                "start_time": "14:00",
-                "end_time": "22:00"
-            },
-            {
-                "day": "Tuesday",
-                "start_time": "06:00",
-                "end_time": "14:00"
-            },
-            {
-                "day": "Tuesday",
-                "start_time": "14:00",
-                "end_time": "22:00"
-            },
-        ]
-        for shift in shifts:
+
+        for shift in shifts_list:
             shift_obj = Shift(day=shift["day"], start_time=shift["start_time"], end_time=shift["end_time"])
             shift_obj.save()
 

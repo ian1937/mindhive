@@ -4,25 +4,25 @@ from roster.models import Role
 from roster.views import roles
 
 
+roles_list = [
+    {'name': 'Backend Developer'},
+    {'name': 'Frontend Developer'},
+    {'name': 'Fullstack Developer'},
+]
+
 class RoleEndpointTest(BaseTest):
 
     def setUp(self):
         super().setUp()
 
-        roles = [
-            {'name': 'Backend Developer'},
-            {'name': 'Frontend Developer'},
-            {'name': 'Fullstack Developer'},
-        ]
-
-        for role in roles:
+        for role in roles_list:
             role_obj = Role(name=role['name'])
             role_obj.save()
 
     def tearDown(self):
         Role.objects.all().delete()
 
-    def test_endpoint(self):
+    def test_roles_endpoint(self):
         response = self.client.get('/roles/')
         self.assertEqual(response.resolver_match.func, roles)
 

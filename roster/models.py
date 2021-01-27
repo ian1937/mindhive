@@ -33,7 +33,7 @@ class Shift(models.Model):
 class Employee(models.Model):
     name = models.CharField(max_length=50)
 
-    role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
+    role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL, related_name='employee')
 
     def __str__(self):
         return '{} [{}]'.format(self.name, self.role)

@@ -17,7 +17,7 @@ class ShiftSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    role = serializers.CharField(source='role.name')
+    role = RoleSerializer()
 
     class Meta:
         model = Employee
