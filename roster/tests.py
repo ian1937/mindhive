@@ -1,22 +1,45 @@
 from django.test import TestCase
-from django.urls import resolve
+from rest_framework.test import APIClient
 
-from roster.views import shifts, employees, availability
+from roster.views import roles, shifts, employees, availabilities
 
 
-class EndpointTest(TestCase):
+class BaseTest(TestCase):
+
+    def setUp(self):
+        self.client = APIClient()
+
+    def tearDown(self):
+        pass
+
+
+class RoleEndpointTest(BaseTest):
+
+    def test_endpoint(self):
+        response = self.client.get('/roles/')
+        self.assertEqual(response.resolver_match.func, roles)
+
+    # def test_return_data(self):
+    #     endpoint = resolve('/roles')
+    #     self.assertEqual(endpoint.response)
+
+
+class ShiftsEndpointTest(BaseTest):
+
     def test_shifts_endpoint(self):
-        endpoint = resolve('/shifts')
-        self.assertEqual(endpoint.func, shifts)
+        response = self.client.get('/shifts/')
+        self.assertEqual(response.resolver_match.func, shifts)
 
+
+class EmployeesEndpointTest(BaseTest):
+    
     def test_employees_endpoint(self):
-        endpoint = resolve('/employees')
-        self.assertEqual(endpoint.func, employees)
+        response = self.client.get('/employees/')
+        self.assertEqual(response.resolver_match.func, employees)
 
+
+class AvailabilitiesEndpointTest(BaseTest):
+    
     def test_availabilities_endpoint(self):
-        endpoint = resolve('/availabilities')
-        self.assertEqual(endpoint.func, availabilities)
-
-    def test_roles_endpoint(self):
-        endpoint = resolve('/roles')
-        self.assertEqual(endpoint.func, roles)
+        response = self.client.get('/availabilities/')
+        self.assertEqual(response.resolver_match.func, availabilities)

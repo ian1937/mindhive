@@ -14,6 +14,9 @@ class Days(models.TextChoices):
 class Role(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return '{}'.format(self.name)
+
 
 class Shift(models.Model):
     day = models.CharField(max_length=10, choices=Days.choices)

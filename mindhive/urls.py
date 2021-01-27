@@ -20,7 +20,7 @@ from roster import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('roles/', views.roles, name='roles'),
-    # path('api/shifts', views.shifts, name='shifts'),
-    # path('api/employees', views.employees, name='employees'),
-    # path('api/availabilities', views.availabilities, name='availabilities'),
+    path('shifts/', views.shifts, name='shifts'),
+    path('employees/', views.employees, name='employees'),
+    path('availabilities/', views.availabilities, name='availabilities'),
 ]
