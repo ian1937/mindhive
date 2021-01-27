@@ -17,11 +17,15 @@ class ShiftSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    role = RoleSerializer()
 
     class Meta:
         model = Employee
         fields = ["name", "role"]
+
+    """ see https://stackoverflow.com/questions/50256852/django-rest-framework-post-foreign-key for details"""
+    def to_representation(self, instance):
+        self.fields["role"] =  RoleSerializer()
+        return super(EmployeeSerializer, self).to_representation(instance)
 
 
 class AvailabilitySerializer(serializers.ModelSerializer):

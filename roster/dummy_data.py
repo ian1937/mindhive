@@ -16,8 +16,9 @@ from roster.models import Role, Employee
 from roster.tests.test_roles import roles_list
 from roster.tests.test_employees import employees_list
 for count, employee in enumerate(employees_list):
-    role = Role.objects.filter(name=roles_list[count]["name"]).first()
+    role = Role(name=roles_list[count]["name"])
     employee_obj = Employee(name=employee["name"], role=role)
+    role.save()
     employee_obj.save()
 
 exit()
