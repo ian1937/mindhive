@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from roster.models import Role, Shift, Employee, Availability
-from roster.serializers import RoleSerializer, ShiftSerializer
+from roster.serializers import RoleSerializer, ShiftSerializer, EmployeeSerializer, AvailabilitySerializer
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -41,9 +41,14 @@ def shifts(request):
     return HttpResponse(status=404)
 
 
+@api_view(['GET', 'POST', 'DELETE'])
+def employees(request):
+    if request.method == 'GET':
+        employees = Employee.objects.all()
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data, status=200)
+    return HttpResponse(status=404)
+
+
 def availabilities(request):
     return HttpResponse('Hello availabilities')
-
-
-def employees(request):
-    return HttpResponse('Hello employees')

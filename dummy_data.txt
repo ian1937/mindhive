@@ -90,5 +90,27 @@ for shift in shifts:
     shift_obj = Shift(day=shift["day"], start_time=shift["start_time"], end_time=shift["end_time"])
     shift_obj.save()
 
+from roster.models import Role, Employee
+roles = [
+    {"name": "Project Manager"},
+    {"name": "Devops"},
+    {"name": "Fullstack Developer"},
+    {"name": "Frontend Developer"},
+    {"name": "Backend Developer"},
+    {"name": "QA Engineer"},
+]
+employees = [
+    {"name": "Donna Valentina"},
+    {"name": "Daniel Kanasimo"},
+    {"name": "Ricky Sudargo"},
+    {"name": "Della Angelina"},
+    {"name": "Dian Novick"},
+    {"name": "Patricia Carolina"},
+]
+for count, employee in enumerate(employees):
+    role = Role.objects.filter(name=roles[count]["name"]).first()
+    employee_obj = Employee(name=employee["name"], role=role)
+    employee_obj.save()
+
 exit()
 
