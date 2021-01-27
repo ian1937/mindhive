@@ -1,17 +1,7 @@
-from django.test import TestCase
-from rest_framework.test import APIClient
+from roster.tests import BaseTest
 
-from roster.models import Role, Shift, Employee, Availability
-from roster.views import roles, shifts, employees, availabilities
-
-
-class BaseTest(TestCase):
-
-    def setUp(self):
-        self.client = APIClient()
-
-    def tearDown(self):
-        pass
+from roster.models import Role
+from roster.views import roles
 
 
 class RoleEndpointTest(BaseTest):
@@ -45,22 +35,6 @@ class RoleEndpointTest(BaseTest):
         response = self.client.post('/roles/', payload)
         self.assertIn(b'Project Manager', response.content)
 
-class ShiftsEndpointTest(BaseTest):
-
-    def test_shifts_endpoint(self):
-        response = self.client.get('/shifts/')
-        self.assertEqual(response.resolver_match.func, shifts)
-
-
-class EmployeesEndpointTest(BaseTest):
-    
-    def test_employees_endpoint(self):
-        response = self.client.get('/employees/')
-        self.assertEqual(response.resolver_match.func, employees)
-
-
-class AvailabilitiesEndpointTest(BaseTest):
-    
-    def test_availabilities_endpoint(self):
-        response = self.client.get('/availabilities/')
-        self.assertEqual(response.resolver_match.func, availabilities)
+    def test_delete_all_data(self):
+        response = self.client.delete('/roles/')
+        self.assertEqual(b'', response.content)
