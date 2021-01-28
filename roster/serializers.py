@@ -20,7 +20,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ["name", "role"]
+        fields = ["id", "name", "role"]
 
     """ see https://stackoverflow.com/questions/50256852/django-rest-framework-post-foreign-key for details"""
     def to_representation(self, instance):
@@ -32,7 +32,7 @@ class EmployeeNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ["name"]
+        fields = ["id", "name"]
 
 
 class AvailabilitySerializer(serializers.ModelSerializer):

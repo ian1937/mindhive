@@ -1,6 +1,6 @@
 from roster.tests import BaseTest
 
-from roster.models import Availability, Employee
+from roster.models import Availability, Employee, Role
 from roster.views import availabilities
 from roster.tests.test_employees import employees_list
 
@@ -46,3 +46,20 @@ class AvailabilitiesEndpointTest(BaseTest):
         self.assertIn(b"Monday", response.content)
         self.assertIn(b"Tuesday", response.content)
         self.assertIn(b"Wednesday", response.content)
+
+    def test_post_data_saved(self):
+        role = Role(name="Project Manager")
+        role.save()
+        employee = Employee(name="Patricia Carolina", role=role)
+        employee.save()
+        payload = {"day": "Sunday", 
+                    "start_time": "06:00", 
+                    "end_time": "18:00", 
+                    "employee": employee.id}
+        response = self.client.post("/availabilities/", payload)
+        self.assertIn(b"Sunday", response.content)
+        self.assertIn(b"Patricia Carolina", response.content)
+
+    def test_delete_all_data(self):
+        response = self.client.delete("/availabilities/")
+        self.assertEqual(b"", response.content)

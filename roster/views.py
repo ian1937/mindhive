@@ -75,4 +75,15 @@ def availabilities(request):
         serializer = AvailabilitySerializer(availabilities, many=True)
         return Response(serializer.data, status=200)
 
+    elif request.method == "POST":
+        serializer = AvailabilitySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+    elif request.method == "DELETE":
+        availabilities = Availability.objects.all()
+        availabilities.delete()
+        return Response(status=204)
+
     return HttpResponse(status=404)

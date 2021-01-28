@@ -37,8 +37,8 @@ class EmployeesEndpointTest(BaseTest):
         role.save()
         payload = {"name": "Patricia Carolina", "role": role.id}
         response = self.client.post("/employees/", payload)
-        self.assertIn(b"Patricia Carolina", response.content)
         self.assertIn(b"Project Manager", response.content)
+        self.assertIn(b"Patricia Carolina", response.content)
 
     def test_delete_all_data(self):
         response = self.client.delete("/employees/")
