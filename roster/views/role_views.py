@@ -27,5 +27,12 @@ def roles(request):
     return HttpResponse(status=404)
 
 
+@api_view(["GET", "PUT", "DELETE"])
 def role(request, id):
+
+    if request.method == "GET":
+        role = Role.objects.get(id=id)
+        serializer = RoleSerializer(role)
+        return Response(serializer.data, status=200)
+
     return HttpResponse(f"Hello {id}")

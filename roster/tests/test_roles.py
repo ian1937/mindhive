@@ -10,7 +10,7 @@ roles_list = [
     {'name': 'Fullstack Developer'},
 ]
 
-class RolesEndpointTest(BaseTest):
+class RoleBaseTest(BaseTest):
 
     def setUp(self):
         super().setUp()
@@ -21,6 +21,9 @@ class RolesEndpointTest(BaseTest):
 
     def tearDown(self):
         Role.objects.all().delete()
+
+
+class RolesEndpointTest(RoleBaseTest):
 
     def test_roles_endpoint(self):
         response = self.client.get('/roles/')
@@ -42,8 +45,14 @@ class RolesEndpointTest(BaseTest):
         self.assertEqual(b'', response.content)
 
 
-class RoleEndPointTest(BaseTest):
+class RoleEndPointTest(RoleBaseTest):
 
     def test_role_endpoint(self):
         response = self.client.get('/roles/1')
         self.assertEqual(response.resolver_match.func, role)
+
+    def test_get_return_data(self):
+        response = self.client.get('/roles/1')
+        role_name = response.data["name"]
+        list_of_role = b"Backend Developer, Frontend Developer, Fullstack Developer"
+        self.assertIn(bytes(role_name, encoding='utf-8'), list_of_role)
