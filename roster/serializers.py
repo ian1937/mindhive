@@ -6,7 +6,7 @@ class RoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Role
-        fields = ["name"]
+        fields = ["id", "name"]
 
 
 class ShiftSerializer(serializers.ModelSerializer):
@@ -29,4 +29,11 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 class AvailabilitySerializer(serializers.ModelSerializer):
-    pass
+    
+    class Meta:
+        model = Availability
+        fields = ["day", "start_time", "end_time", "employee"]
+        
+    def to_representation(self, instance):
+        self.fields["employee"] =  EmployeeSerializer()
+        return super(AvailabilitySerializer, self).to_representation(instance)

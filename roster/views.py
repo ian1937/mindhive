@@ -67,5 +67,12 @@ def employees(request):
     return HttpResponse(status=404)
 
 
+@api_view(["GET", "POST", "DELETE"])
 def availabilities(request):
-    return HttpResponse("Hello availabilities")
+
+    if request.method == "GET":
+        availabilities = Availability.objects.all()
+        serializer = AvailabilitySerializer(availabilities, many=True)
+        return Response(serializer.data, status=200)
+
+    return HttpResponse(status=404)
