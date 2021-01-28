@@ -9,6 +9,10 @@ employees_list = [
     {"name": "Donna Valentina"},
     {"name": "Daniel Kanasimo"},
     {"name": "Ricky Sudargo"},
+    {"name": "Caecilia Canggita"},
+    {"name": "Dea Milea"},
+    {"name": "Klara Sylvana"},
+    {"name": "Jennifer Susanto"},
 ]
 
 

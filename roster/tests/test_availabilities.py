@@ -22,6 +22,26 @@ availabilities_list = [
         "start_time": "06:00",
         "end_time": "12:00"
     },
+    {
+        "day": "Thursday",
+        "start_time": "06:00",
+        "end_time": "16:00"
+    },
+    {
+        "day": "Friday",
+        "start_time": "08:00",
+        "end_time": "12:00"
+    },
+    {
+        "day": "Saturday",
+        "start_time": "06:00",
+        "end_time": "20:00"
+    },
+    {
+        "day": "Sunday",
+        "start_time": "10:00",
+        "end_time": "22:00"
+    },
 ]
 
 

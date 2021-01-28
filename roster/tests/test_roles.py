@@ -8,6 +8,10 @@ roles_list = [
     {"name": "Backend Developer"},
     {"name": "Frontend Developer"},
     {"name": "Fullstack Developer"},
+    {"name": "Project Manager"},
+    {"name": "Scrum Master"},
+    {"name": "QA Engineer"},
+    {"name": "Devops"},
 ]
 
 class RoleBaseTest(BaseTest):
