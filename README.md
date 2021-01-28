@@ -2,8 +2,10 @@
 
 
 Run the command below to install the app to your local computer:
-  git clone https://github.com/ian1937/mindhive/tree/master
+	git clone https://github.com/ian1937/mindhive/tree/master
 	
+Install the requirements:
+	pip install -r requirements.txt
 	
 Run the program:
 	python manage.py runserver
