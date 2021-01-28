@@ -36,10 +36,3 @@ for count, availability in enumerate(availabilities_list):
     availability_obj.save()
 
 exit()
-
-
-from roster.models import Availability, Employee, Role, Shift
-Availability.objects.all().delete()
-Employee.objects.all().delete()
-Role.objects.all().delete()
-Shift.objects.all().delete()

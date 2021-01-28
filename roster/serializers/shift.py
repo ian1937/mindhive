@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from roster.models import Shift
-from roster.serializers.role import EmployeeSetSerializer
+from roster.serializers.employee import EmployeeSerializer
 
 
 class ShiftSerializer(serializers.ModelSerializer):
-    worked_by = EmployeeSetSerializer(read_only=True)
+    worked_by = EmployeeSerializer(read_only=True)
 
     class Meta:
         model = Shift
