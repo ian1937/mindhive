@@ -1,6 +1,6 @@
 from roster.tests import BaseTest
 
-from roster.models import Availability
+from roster.models import Availability, Employee
 from roster.views import availabilities
 from roster.tests.test_employees import employees_list
 
@@ -12,12 +12,12 @@ availabilities_list = [
         "end_time": "18:00"
     },
     {
-        "day": "Monday",
+        "day": "Tuesday",
         "start_time": "06:00",
         "end_time": "22:00"
     },
     {
-        "day": "Tuesday",
+        "day": "Wednesday",
         "start_time": "06:00",
         "end_time": "12:00"
     },
@@ -40,3 +40,9 @@ class AvailabilitiesEndpointTest(BaseTest):
     def test_availabilities_endpoint(self):
         response = self.client.get('/availabilities/')
         self.assertEqual(response.resolver_match.func, availabilities)
+
+    def test_get_return_data(self):
+        response = self.client.get("/availabilities/")
+        self.assertIn(b"Monday", response.content)
+        self.assertIn(b"Tuesday", response.content)
+        self.assertIn(b"Wednesday", response.content)
