@@ -7,7 +7,10 @@ Run the command below to install the app to your local computer:
 Install the requirements:
 	pip install -r requirements.txt
 	
-Run the program:
+Activate virtual environement:
+	venv\Scripts\activate.bat
+	
+Run the program (make sure venv is activated):
 	python manage.py runserver
 	
 Setup data (Database should already be occupied by data):
@@ -25,5 +28,5 @@ shifts/<int:id> GET a shift, PUT edit a shift, DELETE a shift
 employees/<int:id> GET an employee, PUT edit an employee, DELETE an employee
 availabilities/<int:id> GET an availability, PUT edit an availability, DELETE an availability
 
-See coverage report:
+See coverage report (make sure venv is activated):
 	coverage report
