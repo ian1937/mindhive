@@ -1,7 +1,7 @@
 from roster.tests import BaseTest
 
 from roster.models import Availability, Employee, Role
-from roster.views import availabilities
+from roster.views.availability_views import availabilities
 from roster.tests.test_employees import employees_list
 
 

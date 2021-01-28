@@ -1,7 +1,7 @@
 from roster.tests import BaseTest
 
 from roster.models import Role
-from roster.views import roles
+from roster.views.role_views import roles
 
 
 roles_list = [

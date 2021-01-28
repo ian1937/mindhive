@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from roster import views
+from roster.views import role_views, shift_views, employee_views, availability_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('roles/', views.roles, name='roles'),
-    path('shifts/', views.shifts, name='shifts'),
-    path('employees/', views.employees, name='employees'),
-    path('availabilities/', views.availabilities, name='availabilities'),
+    path('roles/', role_views.roles, name='roles'),
+    path('shifts/', shift_views.shifts, name='shifts'),
+    path('employees/', employee_views.employees, name='employees'),
+    path('availabilities/', availability_views.availabilities, name='availabilities'),
 ]
