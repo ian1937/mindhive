@@ -12,15 +12,13 @@ Setup data (Database should already be occupied by data):
 	Copy and paste dummy_data.py file to the command line
 	
 API endpoints:
-							GET			POST		PUT		DELETE
 							
-roles/						O			O			X		O
-shifts/						O			O			X		O
-employees/					O			O			X		O
-availabilities/				O			O			X		O
+roles/ GET all roles, POST a role, DELETE all roles
+shifts/ GET all shifts, POST a shift, DELETE all shifts
+employees/ GET all employees, POST an employee, DELETE all employees
+availabilities/ GET all availabilities, POST an availability, DELETE all availabilities
 
-
-roles/<int:id>				O			X			O		O
-shifts/<int:id>				O			X			O		O
-employees/<int:id>			O			X			O		O
-availabilities/<int:id>		O			X			O		O
+roles/<int:id> GET a role, PUT edit a role, DELETE a role
+shifts/<int:id> GET a shift, PUT edit a shift, DELETE a shift
+employees/<int:id> GET an employee, PUT edit an employee, DELETE an employee
+availabilities/<int:id> GET an availability, PUT edit an availability, DELETE an availability
