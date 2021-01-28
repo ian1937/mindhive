@@ -2,11 +2,19 @@ from rest_framework import serializers
 from roster.models import Role, Shift, Employee, Availability
 
 
+class EmployeeSetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Employee
+        fields = ["id", "name"]
+
+
 class RoleSerializer(serializers.ModelSerializer):
+    employee_set = EmployeeSetSerializer(many=True, read_only=True)
 
     class Meta:
         model = Role
-        fields = ["id", "name"]
+        fields = ["id", "name", "employee_set"]
 
 
 class ShiftSerializer(serializers.ModelSerializer):
@@ -16,7 +24,7 @@ class ShiftSerializer(serializers.ModelSerializer):
         fields = ["day", "start_time", "end_time"]
 
 
-class AvailabilityInfoSerializer(serializers.ModelSerializer):
+class AvailabilitySetSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Availability
@@ -24,7 +32,7 @@ class AvailabilityInfoSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    availability_set = AvailabilityInfoSerializer(many=True, read_only=True)
+    availability_set = AvailabilitySetSerializer(many=True, read_only=True)
 
     class Meta:
         model = Employee
