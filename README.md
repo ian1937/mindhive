@@ -2,7 +2,7 @@
 
 
 Run the command below to install the app to your local computer:
-  git clone https://github.com/ian1937/mindhive/new/master?readme=1
+  git clone https://github.com/ian1937/mindhive/tree/master
 	
 	
 Run the program:
