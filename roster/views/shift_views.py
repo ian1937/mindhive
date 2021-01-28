@@ -39,4 +39,14 @@ def shift(request, id):
         serializer = ShiftSerializer(shift)
         return Response(serializer.data, status=200)
 
+    elif request.method == "PUT":
+        serializer = ShiftSerializer(shift, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+    elif request.method == "DELETE":
+        shift.delete()
+        return Response(status=204)
+
     return HttpResponse(status=404)

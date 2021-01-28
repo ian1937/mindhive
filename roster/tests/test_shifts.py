@@ -21,7 +21,7 @@ shifts_list = [
         "end_time": "14:00"
     },
     {
-        "day": "Tuesday",
+        "day": "Thursday",
         "start_time": "14:00",
         "end_time": "22:00"
     },
@@ -55,7 +55,7 @@ class ShiftsEndpointTest(ShiftBaseTest):
         self.assertIn(b'Wednesday', response.content)
 
     def test_delete_all_data(self):
-        response = self.client.delete('/roles/')
+        response = self.client.delete('/shifts/')
         self.assertEqual(b'', response.content)
 
 
@@ -67,6 +67,24 @@ class ShiftEndpointTest(ShiftBaseTest):
 
     def test_get_return_data(self):
         response = self.client.get("/shifts/1")
-        shift_name = response.data["day"]
+        shift_day = response.data["day"]
         list_of_shift_day = b"Monday, Tuesday"
-        self.assertIn(bytes(shift_name, encoding="utf-8"), list_of_shift_day)
+        self.assertIn(bytes(shift_day, encoding="utf-8"), list_of_shift_day)
+
+    def test_put_data_changed(self):
+        # Get current shift's day (should be "Monday")
+        get_response = self.client.get("/shifts/1")
+        get_shift_day = get_response.data["day"]
+        # Change day to "Friday"
+        payload = {"day": "Friday", "start_time": "06:00", "end_time": "14:00"}
+        response = self.client.put("/shifts/1", payload)
+        # Get changed day
+        shift_day = response.data["day"]
+        # Changed day should be in response
+        self.assertIn(b"Friday", response.content)
+        # Old day should not be in response
+        self.assertNotIn(bytes(get_shift_day, encoding="utf-8"), response.content)
+
+    def test_delete_data(self):
+        response = self.client.delete("/shifts/1")
+        self.assertEqual(b"", response.content)
