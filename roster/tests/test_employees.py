@@ -19,8 +19,8 @@ class EmployeeBaseTest(BaseTest):
 
         for count, employee in enumerate(employees_list):
             role = Role(name=roles_list[count]["name"])
-            employee_obj = Employee(name=employee["name"], role=role)
             role.save()
+            employee_obj = Employee(name=employee["name"], role=role)
             employee_obj.save()
 
 

@@ -38,6 +38,16 @@ def availability(request, id):
     if request.method == "GET":
         serializer = AvailabilitySerializer(availability)
         return Response(serializer.data, status=200)
-        
+
+    elif request.method == "PUT":
+        serializer = AvailabilitySerializer(availability, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+    elif request.method == "DELETE":
+        availability.delete()
+        return Response(status=204)
+
     return HttpResponse(status=404)
     

@@ -3,6 +3,7 @@ from roster.tests import BaseTest
 from roster.models import Availability, Employee, Role
 from roster.views.availability_views import availabilities, availability
 from roster.tests.test_employees import employees_list
+from roster.tests.test_roles import roles_list
 
 
 availabilities_list = [
@@ -30,12 +31,14 @@ class AvailabilityBaseTest(BaseTest):
         super().setUp()
 
         for count, availability in enumerate(availabilities_list):
-            employee = Employee(name=employees_list[count]["name"])
+            role = Role(name=roles_list[count]["name"])
+            role.save()
+            employee = Employee(name=employees_list[count]["name"], role=role)
+            employee.save()
             availability_obj = Availability(day=availability["day"],
                                             start_time=availability["start_time"],
                                             end_time=availability["end_time"],
                                             employee=employee)
-            employee.save()
             availability_obj.save()
 
 
@@ -80,3 +83,21 @@ class AvailabilityEndpointTest(AvailabilityBaseTest):
         availability_day = response.data["day"]
         list_of_availability_day = b"Monday, Tuesday, Wednesday"
         self.assertIn(bytes(availability_day, encoding="utf-8"), list_of_availability_day)
+
+    def test_put_data_changed(self):
+        # Get current day (should be "Monday")
+        get_response = self.client.get("/availabilities/1")
+        get_availability_day = get_response.data["day"]
+        # Change day to "Friday"
+        payload = {"day": "Friday", "start_time": "06:00", "end_time": "14:00"}
+        response = self.client.put("/availabilities/1", payload)
+        # Get changed day
+        availability_day = response.data["day"]
+        # Changed day should be in response
+        self.assertIn(b"Friday", response.content)
+        # Old day should not be in response
+        self.assertNotIn(bytes(get_availability_day, encoding="utf-8"), response.content)
+
+    def test_delete_data(self):
+        response = self.client.delete("/availabilities/1")
+        self.assertEqual(b"", response.content)

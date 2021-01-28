@@ -31,6 +31,13 @@ class AvailabilitySetSerializer(serializers.ModelSerializer):
         fields = ["day", "start_time", "end_time"]
 
 
+class RoleSetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Role
+        fields = ["id", "name"]
+
+
 class EmployeeSerializer(serializers.ModelSerializer):
     availability_set = AvailabilitySetSerializer(many=True, read_only=True)
 
@@ -40,7 +47,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     """ see https://stackoverflow.com/questions/50256852/django-rest-framework-post-foreign-key for details"""
     def to_representation(self, instance):
-        self.fields["role"] =  RoleSerializer(required=False)
+        self.fields["role"] =  RoleSetSerializer(required=False)
         return super(EmployeeSerializer, self).to_representation(instance)
 
 
@@ -58,5 +65,5 @@ class AvailabilitySerializer(serializers.ModelSerializer):
         fields = ["id", "day", "start_time", "end_time", "employee"]
         
     def to_representation(self, instance):
-        self.fields["employee"] =  EmployeeNameSerializer()
+        self.fields["employee"] =  EmployeeNameSerializer(required=False)
         return super(AvailabilitySerializer, self).to_representation(instance)

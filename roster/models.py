@@ -41,7 +41,7 @@ class Availability(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
 
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"{self.day}: {self.start_time} - {self.end_time}"
