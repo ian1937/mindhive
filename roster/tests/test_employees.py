@@ -11,7 +11,8 @@ employees_list = [
     {"name": "Ricky Sudargo"},
 ]
 
-class EmployeesEndpointTest(BaseTest):
+
+class EmployeeTestBase(BaseTest):
 
     def setUp(self):
         super().setUp()
@@ -21,6 +22,9 @@ class EmployeesEndpointTest(BaseTest):
             employee_obj = Employee(name=employee["name"], role=role)
             role.save()
             employee_obj.save()
+
+
+class EmployeesEndpointTest(EmployeeTestBase):
     
     def test_employees_endpoint(self):
         response = self.client.get("/employees/")
@@ -43,3 +47,16 @@ class EmployeesEndpointTest(BaseTest):
     def test_delete_all_data(self):
         response = self.client.delete("/employees/")
         self.assertEqual(b"", response.content)
+
+
+class EmployeeEndpointTest(EmployeeTestBase):
+
+    def test_employee_endpoint(self):
+        response = self.client.get("/employees/1")
+        self.assertEqual(response.resolver_match.func, employee)
+
+    def test_get_return_data(self):
+        response = self.client.get("/employees/1")
+        employee_name = response.data["name"]
+        list_of_employee_name = b"Donna Valentina, Daniel Kanasimo, Ricky Sudargo"
+        self.assertIn(bytes(employee_name, encoding="utf-8"), list_of_employee_name)

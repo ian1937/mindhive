@@ -27,6 +27,17 @@ def employees(request):
     return HttpResponse(status=404)
 
 
+@api_view(["GET", "PUT", "DELETE"])
 def employee(request, id):
-    return HttpResponse(f"Hello {id}")
+
+    try:
+        employee = Employee.objects.get(id=id)
+    except Employee.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == "GET":
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=200)
+    
+    return HttpResponse(status=404)
     
