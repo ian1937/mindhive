@@ -18,10 +18,11 @@ class RoleSerializer(serializers.ModelSerializer):
 
 
 class ShiftSerializer(serializers.ModelSerializer):
+    worked_by = EmployeeSetSerializer(read_only=True)
 
     class Meta:
         model = Shift
-        fields = ["day", "start_time", "end_time"]
+        fields = ["day", "start_time", "end_time", "worked_by"]
 
 
 class AvailabilitySetSerializer(serializers.ModelSerializer):

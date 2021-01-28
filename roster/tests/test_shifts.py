@@ -11,17 +11,12 @@ shifts_list = [
         "end_time": "14:00"
     },
     {
-        "day": "Monday",
-        "start_time": "14:00",
-        "end_time": "22:00"
-    },
-    {
         "day": "Tuesday",
         "start_time": "06:00",
         "end_time": "14:00"
     },
     {
-        "day": "Thursday",
+        "day": "Wednesday",
         "start_time": "14:00",
         "end_time": "22:00"
     },

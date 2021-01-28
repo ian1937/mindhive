@@ -18,15 +18,6 @@ class Role(models.Model):
         return f"[{self.id}] {self.name}"
 
 
-class Shift(models.Model):
-    day = models.CharField(max_length=10, choices=Days.choices)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    
-    def __str__(self):
-        return f"{self.day}: {self.start_time} - {self.end_time}"
-
-
 class Employee(models.Model):
     name = models.CharField(max_length=50)
 
@@ -34,6 +25,17 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"[{self.id}] {self.name} ({self.role})"
+
+
+class Shift(models.Model):
+    worked_by = models.OneToOneField(Employee, null=True, on_delete=models.SET_NULL)
+
+    day = models.CharField(max_length=10, choices=Days.choices)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    
+    def __str__(self):
+        return f"{self.day}: {self.start_time} - {self.end_time}"
 
 
 class Availability(models.Model):
