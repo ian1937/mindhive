@@ -25,3 +25,7 @@ def shifts(request):
         return Response(status=204)
 
     return HttpResponse(status=404)
+
+
+def shift(request, id):
+    return HttpResponse(f"Hello {id}")

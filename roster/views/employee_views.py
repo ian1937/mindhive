@@ -25,3 +25,8 @@ def employees(request):
         return Response(status=204)
 
     return HttpResponse(status=404)
+
+
+def employee(request, id):
+    return HttpResponse(f"Hello {id}")
+    

@@ -1,7 +1,7 @@
 from roster.tests import BaseTest
 
 from roster.models import Role
-from roster.views.role_views import roles
+from roster.views.role_views import roles, role
 
 
 roles_list = [
@@ -10,7 +10,7 @@ roles_list = [
     {'name': 'Fullstack Developer'},
 ]
 
-class RoleEndpointTest(BaseTest):
+class RolesEndpointTest(BaseTest):
 
     def setUp(self):
         super().setUp()
@@ -41,3 +41,9 @@ class RoleEndpointTest(BaseTest):
         response = self.client.delete('/roles/')
         self.assertEqual(b'', response.content)
 
+
+class RoleEndPointTest(BaseTest):
+
+    def test_role_endpoint(self):
+        response = self.client.get('/roles/1')
+        self.assertEqual(response.resolver_match.func, role)

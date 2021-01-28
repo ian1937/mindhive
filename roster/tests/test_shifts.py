@@ -1,7 +1,7 @@
 from roster.tests import BaseTest
 
 from roster.models import Shift
-from roster.views.shift_views import shifts
+from roster.views.shift_views import shifts, shift
 
 
 shifts_list = [
