@@ -27,7 +27,8 @@ shifts_list = [
     },
 ]
 
-class ShiftsEndpointTest(BaseTest):
+
+class ShiftBaseTest(BaseTest):
 
     def setUp(self):
         super().setUp()
@@ -35,6 +36,9 @@ class ShiftsEndpointTest(BaseTest):
         for shift in shifts_list:
             shift_obj = Shift(day=shift["day"], start_time=shift["start_time"], end_time=shift["end_time"])
             shift_obj.save()
+
+
+class ShiftsEndpointTest(ShiftBaseTest):
 
     def test_shifts_endpoint(self):
         response = self.client.get('/shifts/')
@@ -54,3 +58,15 @@ class ShiftsEndpointTest(BaseTest):
         response = self.client.delete('/roles/')
         self.assertEqual(b'', response.content)
 
+
+class ShiftEndpointTest(ShiftBaseTest):
+
+    def test_shift_endpoint(self):
+        response = self.client.get("/shifts/1")
+        self.assertEqual(response.resolver_match.func, shift)
+
+    def test_get_return_data(self):
+        response = self.client.get("/shifts/1")
+        shift_name = response.data["day"]
+        list_of_shift_day = b"Monday, Tuesday"
+        self.assertIn(bytes(shift_name, encoding="utf-8"), list_of_shift_day)

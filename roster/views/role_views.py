@@ -32,7 +32,7 @@ def role(request, id):
 
     try:
         role = Role.objects.get(id=id)
-    except Snippet.DoesNotExist:
+    except Role.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == "GET":
@@ -46,7 +46,6 @@ def role(request, id):
             return Response(serializer.data, status=201)
 
     elif request.method == "DELETE":
-        role = Role.objects.get(id=id)
         role.delete()
         return Response(status=204)
 

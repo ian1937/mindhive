@@ -27,5 +27,16 @@ def shifts(request):
     return HttpResponse(status=404)
 
 
+@api_view(["GET", "PUT", "DELETE"])
 def shift(request, id):
-    return HttpResponse(f"Hello {id}")
+
+    try:
+        shift = Shift.objects.get(id=id)
+    except Shift.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == "GET":
+        serializer = ShiftSerializer(shift)
+        return Response(serializer.data, status=200)
+
+    return HttpResponse(status=404)
