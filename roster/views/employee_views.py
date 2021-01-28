@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from roster.models import Employee
-from roster.serializers import EmployeeSerializer
+from roster.serializers.employee import EmployeeSerializer
 
 
 @api_view(["GET", "POST", "DELETE"])

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from roster.models import Role
-from roster.serializers import RoleSerializer
+from roster.serializers.role import RoleSerializer
 
 
 @api_view(["GET", "POST", "DELETE"])
