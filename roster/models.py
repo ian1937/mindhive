@@ -15,7 +15,7 @@ class Role(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return '[{}] {}'.format(self.id, self.name)
+        return f'[{self.id}] {self.name}'
 
 
 class Shift(models.Model):
@@ -24,7 +24,7 @@ class Shift(models.Model):
     end_time = models.TimeField()
     
     def __str__(self):
-        return '{}: {} - {}'.format(self.day, self.start_time, self.end_time)
+        return f'{self.day}: {self.start_time} - {self.end_time}'
 
 
 class Employee(models.Model):
@@ -33,7 +33,7 @@ class Employee(models.Model):
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return '[{}] {} ({})'.format(self.id, self.name, self.role)
+        return '[{self.id}] {self.name} ({self.role})'
 
 
 class Availability(models.Model):
@@ -44,4 +44,4 @@ class Availability(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{}: {} - {}'.format(self.day, self.start_time, self.end_time)
+        return '{self.day}: {self.start_time} - {self.end_time}'
