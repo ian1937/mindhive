@@ -12,7 +12,7 @@ employees_list = [
 ]
 
 
-class EmployeeTestBase(BaseTest):
+class EmployeeBaseTest(BaseTest):
 
     def setUp(self):
         super().setUp()
@@ -24,7 +24,7 @@ class EmployeeTestBase(BaseTest):
             employee_obj.save()
 
 
-class EmployeesEndpointTest(EmployeeTestBase):
+class EmployeesEndpointTest(EmployeeBaseTest):
     
     def test_employees_endpoint(self):
         response = self.client.get("/employees/")
@@ -49,7 +49,7 @@ class EmployeesEndpointTest(EmployeeTestBase):
         self.assertEqual(b"", response.content)
 
 
-class EmployeeEndpointTest(EmployeeTestBase):
+class EmployeeEndpointTest(EmployeeBaseTest):
 
     def test_employee_endpoint(self):
         response = self.client.get("/employees/1")

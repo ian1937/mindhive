@@ -27,6 +27,17 @@ def availabilities(request):
     return HttpResponse(status=404)
 
 
+@api_view(["GET", "PUT", "DELETE"])
 def availability(request, id):
-    return HttpResponse(f"Hello {id}")
+
+    try:
+        availability = Availability.objects.get(id=id)
+    except Availability.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == "GET":
+        serializer = AvailabilitySerializer(availability)
+        return Response(serializer.data, status=200)
+        
+    return HttpResponse(status=404)
     

@@ -23,7 +23,8 @@ availabilities_list = [
     },
 ]
 
-class AvailabilitiesEndpointTest(BaseTest):
+
+class AvailabilityBaseTest(BaseTest):
 
     def setUp(self):
         super().setUp()
@@ -36,6 +37,9 @@ class AvailabilitiesEndpointTest(BaseTest):
                                             employee=employee)
             employee.save()
             availability_obj.save()
+
+
+class AvailabilitiesEndpointTest(AvailabilityBaseTest):
     
     def test_availabilities_endpoint(self):
         response = self.client.get('/availabilities/')
@@ -63,3 +67,16 @@ class AvailabilitiesEndpointTest(BaseTest):
     def test_delete_all_data(self):
         response = self.client.delete("/availabilities/")
         self.assertEqual(b"", response.content)
+
+
+class AvailabilityEndpointTest(AvailabilityBaseTest):
+
+    def test_availability_endpoint(self):
+        response = self.client.get("/availabilities/1")
+        self.assertEqual(response.resolver_match.func, availability)
+
+    def test_get_return_data(self):
+        response = self.client.get("/availabilities/1")
+        availability_day = response.data["day"]
+        list_of_availability_day = b"Monday, Tuesday, Wednesday"
+        self.assertIn(bytes(availability_day, encoding="utf-8"), list_of_availability_day)
