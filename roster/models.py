@@ -2,20 +2,20 @@ from django.db import models
 
 
 class Days(models.TextChoices):
-    Monday = 'Monday'
-    Tuesday = 'Tuesday'
-    Wednesday = 'Wednesday'
-    Thursday = 'Thursday'
-    Friday = 'Friday'
-    Saturday = 'Saturday'
-    Sunday = 'Sunday'
+    Monday = "Monday"
+    Tuesday = "Tuesday"
+    Wednesday = "Wednesday"
+    Thursday = "Thursday"
+    Friday = "Friday"
+    Saturday = "Saturday"
+    Sunday = "Sunday"
 
 
 class Role(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'[{self.id}] {self.name}'
+        return f"[{self.id}] {self.name}"
 
 
 class Shift(models.Model):
@@ -24,7 +24,7 @@ class Shift(models.Model):
     end_time = models.TimeField()
     
     def __str__(self):
-        return f'{self.day}: {self.start_time} - {self.end_time}'
+        return f"{self.day}: {self.start_time} - {self.end_time}"
 
 
 class Employee(models.Model):
@@ -33,7 +33,7 @@ class Employee(models.Model):
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return '[{self.id}] {self.name} ({self.role})'
+        return f"[{self.id}] {self.name} ({self.role})"
 
 
 class Availability(models.Model):
@@ -44,4 +44,4 @@ class Availability(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{self.day}: {self.start_time} - {self.end_time}'
+        return f"{self.day}: {self.start_time} - {self.end_time}"

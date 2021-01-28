@@ -60,3 +60,21 @@ class EmployeeEndpointTest(EmployeeTestBase):
         employee_name = response.data["name"]
         list_of_employee_name = b"Donna Valentina, Daniel Kanasimo, Ricky Sudargo"
         self.assertIn(bytes(employee_name, encoding="utf-8"), list_of_employee_name)
+
+    def test_put_data_changed(self):
+        # Get current name (should be "Donna Valentina")
+        get_response = self.client.get("/employees/1")
+        get_employee_name = get_response.data["name"]
+        # Change name to "Dian Novick"
+        payload = {"name": "Dian Novick"}
+        response = self.client.put("/employees/1", payload)
+        # Get changed name
+        employee_name = response.data["name"]
+        # Changed Name should be in response
+        self.assertIn(b"Dian Novick", response.content)
+        # Old name should not be in response
+        self.assertNotIn(bytes(get_employee_name, encoding="utf-8"), response.content)
+
+    def test_delete_data(self):
+        response = self.client.delete("/employees/1")
+        self.assertEqual(b"", response.content)

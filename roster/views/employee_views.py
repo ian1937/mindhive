@@ -38,6 +38,16 @@ def employee(request, id):
     if request.method == "GET":
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=200)
+
+    elif request.method == "PUT":
+        serializer = EmployeeSerializer(employee, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+    elif request.method == "DELETE":
+        employee.delete()
+        return Response(status=204)
     
     return HttpResponse(status=404)
     
