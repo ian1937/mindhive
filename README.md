@@ -11,7 +11,7 @@ Run the program:
 	python manage.py runserver
 	
 Setup data (Database should already be occupied by data):
-	Copy and paste dummy_data.py file to the command line
+	Copy and paste dummy_data.txt file to the command line
 	
 API endpoints:
 							
@@ -24,3 +24,6 @@ roles/<int:id> GET a role, PUT edit a role, DELETE a role
 shifts/<int:id> GET a shift, PUT edit a shift, DELETE a shift
 employees/<int:id> GET an employee, PUT edit an employee, DELETE an employee
 availabilities/<int:id> GET an availability, PUT edit an availability, DELETE an availability
+
+See coverage report:
+	coverage report
