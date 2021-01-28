@@ -30,9 +30,24 @@ def roles(request):
 @api_view(["GET", "PUT", "DELETE"])
 def role(request, id):
 
-    if request.method == "GET":
+    try:
         role = Role.objects.get(id=id)
+    except Snippet.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == "GET":
         serializer = RoleSerializer(role)
         return Response(serializer.data, status=200)
 
-    return HttpResponse(f"Hello {id}")
+    elif request.method == "PUT":
+        serializer = RoleSerializer(role, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+    elif request.method == "DELETE":
+        role = Role.objects.get(id=id)
+        role.delete()
+        return Response(status=204)
+
+    return HttpResponse(status=404)
