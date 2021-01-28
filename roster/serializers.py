@@ -28,6 +28,13 @@ class EmployeeSerializer(serializers.ModelSerializer):
         return super(EmployeeSerializer, self).to_representation(instance)
 
 
+class EmployeeNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Employee
+        fields = ["name"]
+
+
 class AvailabilitySerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -35,5 +42,5 @@ class AvailabilitySerializer(serializers.ModelSerializer):
         fields = ["day", "start_time", "end_time", "employee"]
         
     def to_representation(self, instance):
-        self.fields["employee"] =  EmployeeSerializer()
+        self.fields["employee"] =  EmployeeNameSerializer()
         return super(AvailabilitySerializer, self).to_representation(instance)

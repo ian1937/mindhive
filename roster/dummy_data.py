@@ -21,5 +21,24 @@ for count, employee in enumerate(employees_list):
     role.save()
     employee_obj.save()
 
+from roster.models import Availability, Employee
+from roster.tests.test_availabilities import availabilities_list
+from roster.tests.test_employees import employees_list
+for count, availability in enumerate(availabilities_list):
+    employee = Employee(name=employees_list[count]["name"])
+    availability_obj = Availability(day=availability["day"],
+                                    start_time=availability["start_time"],
+                                    end_time=availability["end_time"],
+                                    employee=employee)
+    employee.save()
+    availability_obj.save()
+
+
 exit()
 
+
+from roster.models import Availability, Employee, Role, Shift
+Availability.objects.all().delete()
+Employee.objects.all().delete()
+Role.objects.all().delete()
+Shift.objects.all().delete()
