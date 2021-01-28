@@ -28,5 +28,5 @@ shifts/<int:id> GET a shift, PUT edit a shift, DELETE a shift
 employees/<int:id> GET an employee, PUT edit an employee, DELETE an employee
 availabilities/<int:id> GET an availability, PUT edit an availability, DELETE an availability
 
-See coverage report (make sure venv is activated):
+See test coverage report (make sure venv is activated):
 	coverage report
