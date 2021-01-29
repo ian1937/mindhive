@@ -2,19 +2,24 @@
 
 
 Run the command below to install the app to your local computer:
-	git clone https://github.com/ian1937/mindhive/tree/master
+	git clone -b master https://github.com/ian1937/mindhive
 	
-Install the requirements:
-	pip install -r requirements.txt
-	
-Activate virtual environement:
+Create and activate virtual environment:
+	cd mindhive
+	python -m venv venv
 	venv\Scripts\activate.bat
+	
+Install the requirements (Make sure to have python 3.6 or above on your machine):
+	pip install -r requirements.txt
 	
 Run the program (make sure venv is activated):
 	python manage.py runserver
 	
 Setup data (Database should already be occupied by data):
-	Copy and paste dummy_data.txt file to the command line
+	Copy and paste all dummy_data.txt file to the command line
+
+See test coverage report (make sure venv is activated):
+	coverage report
 	
 API endpoints:
 							
@@ -27,6 +32,3 @@ roles/<int:id> GET a role, PUT edit a role, DELETE a role
 shifts/<int:id> GET a shift, PUT edit a shift, DELETE a shift
 employees/<int:id> GET an employee, PUT edit an employee, DELETE an employee
 availabilities/<int:id> GET an availability, PUT edit an availability, DELETE an availability
-
-See test coverage report (make sure venv is activated):
-	coverage report
